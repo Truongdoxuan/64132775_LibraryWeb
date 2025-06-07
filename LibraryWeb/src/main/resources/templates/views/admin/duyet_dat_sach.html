@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Duyệt mượn sách</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/datSach.css}" />
+    <link rel="stylesheet" th:href="@{/css/tab.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+    <script th:src="@{/js/tab.js}"></script>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">≡</div>
+    <div class="main">
+        <div th:replace="~{layout/sidebar :: sidebar}" class="sidebar hidden" id="sidebar"></div>
+
+        <div th:fragment="content">
+            <div class="tab">
+                <span class="tab-item active" onclick="showTab(event,'notapprove')">CHƯA DUYỆT</span>
+                <span class="tab-item" onclick="showTab(event,'approved')">ĐÃ DUYỆT</span>
+            </div>
+            <div id="notapprove" class="tab-content active">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Tên sách</th>
+                        <th>Người đặt (ID)</th>
+                        <th>Số lượng</th>
+                        <th>Ngày đặt</th>
+                        <th>Trạng thái</th>
+                        <th>Hành động</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="datSach : ${datSachListNotApproved}">
+                        <td th:text="${datSach.sach != null ? datSach.sach.tenSach : 'Không có dữ liệu'}">Tên sách</td>
+                        <td th:text="${datSach.nguoiDung != null ? datSach.nguoiDung.ten : 'Không có tên'}">Tên người dùng</td>
+                        <td th:text="${datSach.sluong}">1</td>
+                        <td th:text="${datSach.ngayDat}">2025-06-08</td>
+                        <td th:text="${datSach.idTrangThai == 1 ? 'Chờ duyệt' : (datSach.idTrangThai == 2 ? 'Đang mượn' : 'Khác')}"
+                            th:classappend="${datSach.idTrangThai == 1 ? 'text-danger' : (datSach.idTrangThai == 2 ? 'text-success' : '')}">
+                            Trạng thái
+                        </td>
+                        <td>
+                            <a th:href="@{'/admin/duyet_dat_sach/' + ${datSach.id}}" onclick="return confirm('Duyệt yêu cầu này?')">
+                                <button class="btn-approved">Duyệt</button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="approved" class="tab-content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Tên sách</th>
+                        <th>Người đặt (ID)</th>
+                        <th>Số lượng</th>
+                        <th>Ngày đặt</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="datSach : ${datSachListApproved}">
+                        <td th:text="${datSach.sach != null ? datSach.sach.tenSach : 'Không có dữ liệu'}">Tên sách</td>
+                        <td th:text="${datSach.nguoiDung != null ? datSach.nguoiDung.ten : 'Không có tên'}">Tên người dùng</td>
+                        <td th:text="${datSach.sluong}">1</td>
+                        <td th:text="${datSach.ngayDat}">2025-06-08</td>
+                        <td th:text="${datSach.idTrangThai == 1 ? 'Chờ duyệt' : (datSach.idTrangThai == 2 ? 'Đang mượn' : 'Khác')}"
+                            th:classappend="${datSach.idTrangThai == 1 ? 'text-danger' : (datSach.idTrangThai == 2 ? 'text-success' : '')}">
+                            Trạng thái
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

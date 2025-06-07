@@ -1,0 +1,27 @@
+<!-- Toggle button -->
+<div class="sidebar-toggle" onclick="toggleSidebar()">≡</div>
+<div th:fragment="sidebar" class="sidebar" id="sidebar">
+    <div class="menu">
+        <a th:if="${role == 'ADMIN'}" th:href="@{/admin/trangchu}" th:classappend="${currentUri == '/admin/trangchu'} ? 'active'">
+            <i class="fa-solid fa-house"></i>Trang chủ</a>
+        <a th:if="${role == 'ADMIN'}" th:href="@{/admin/duyet_dat_sach}" th:classappend="${currentUri == '/admin/duyet_dat_sach'} ? 'active'">
+            <i class="fa-solid fa-book"></i>Duyệt đặt sách</a>
+        <a th:if="${role == 'ADMIN'}" th:href="@{/admin/muon_tra_sach}" th:classappend="${currentUri == '/admin/muon_tra_sach'} ? 'active'">
+            <i class="fa-solid fa-book-open"></i>Mượn/Trả sách</a>
+        <a th:if="${role == 'ADMIN'}" th:href="@{/admin/sach_dang_muon}" th:classappend="${currentUri == '/admin/sach_dang_muon'} ? 'active'">
+            <i class="fa-solid fa-book-open-reader"></i>Sách đang mượn</a>
+        <a th:if="${role == 'ADMIN'}" href="#"><i class="fa-solid fa-id-card"></i>Cấp tài khoản</a>
+
+        <a th:if="${role == 'USER'}" th:href="@{/user/trangchu}" th:classappend="${currentUri == '/user/trangchu'} ? 'active'">
+            <i class="fa-solid fa-house"></i>Trang chủ</a>
+        <a th:if="${role == 'USER'}" th:href="@{/user/ds_dat_truoc}" th:classappend="${currentUri == '/user/dat_truoc_sach'} ? 'active'">
+            <i class="fa-solid fa-book"></i>Đặt trước sách</a>
+        <a th:if="${role == 'USER'}" th:href="@{/user/lich_su_muon}" th:classappend="${currentUri == '/user/lich_su_muon'} ? 'active'">
+            <i class="fa-solid fa-book-open-reader"></i>Lịch sử mượn</a>
+    </div>
+    <form th:action="@{/logout}" method="post" style="margin: 0;" class="logout" onclick="return confirm('Bạn có chắc muốn đăng xuất ?')">
+        <button type="submit" class="btn-logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+        </button>
+    </form>
+</div>

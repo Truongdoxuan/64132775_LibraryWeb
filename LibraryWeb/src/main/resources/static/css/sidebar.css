@@ -1,0 +1,93 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);  /* chiều cao cố định */
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 250px;
+    background-color: #CAF7B7;
+    border-right: 3px solid #1C9800;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+/* Ẩn sidebar */
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+
+/* Nút toggle */
+.sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: white;
+    color: #1C9800;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1200;
+    user-select: none;
+}
+
+.menu {
+    flex: 1 1 auto;  /* hoặc flex-grow:1; flex-shrink:1; flex-basis:auto */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.menu a {
+    padding: 15px;
+    border-bottom: 2px solid #1C9800;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.menu a i {
+    margin-right: 8px;     /* Tạo khoảng cách với chữ */
+    color: inherit;         /* Dùng cùng màu với chữ */
+    display: inline-block;  /* Đảm bảo icon hiển thị */
+}
+
+.sidebar .menu a.active {
+    background-color: #00FF64; /* màu xanh dương */
+    color: white;
+    font-weight: bold;
+}
+
+.menu a.active i {
+    display: inline-block !important;
+}
+
+
+.menu a:hover {
+    background-color: #f0f0f0;
+}
+
+.logout {
+    flex-shrink: 0;          /* không bị co lại */
+    margin-top: auto;
+    padding: 15px;
+    background-color: #1C9800;
+    font-weight: bold;
+    border-top: 1px solid #1eaa1e;
+    cursor: pointer;
+}
+
+.btn-logout {
+    border: none;
+    font-weight: bold;
+    color: white;
+    background-color: transparent !important;
+    cursor: pointer;
+    width: 100%;  /* cho nút rộng bằng sidebar */
+}

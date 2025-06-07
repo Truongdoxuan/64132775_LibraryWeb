@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mượn/Trả sách</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/datSach.css}" />
+    <link rel="stylesheet" th:href="@{/css/tab.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin/formmuonsach.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script th:src="@{/js/tab.js}"></script>
+    <script th:src="@{/js/sidebar.js}"></script>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">≡</div>
+    <div class="main">
+        <div th:replace="~{layout/sidebar :: sidebar}" class="sidebar hidden" id="sidebar"></div>
+
+        <div th:fragment="content">
+            <div class="tab">
+                <span class="tab-item active" onclick="showTab(event,'notapprove')">MƯỢN SÁCH</span>
+                <span class="tab-item" onclick="showTab(event,'approved')">TRẢ SÁCH</span>
+            </div>
+            <div id="notapprove" class="tab-content active">
+                <form class="form-add" th:action="@{/admin/muon_sach}" method="post">
+                    <!-- Người dùng -->
+                    <label>Người dùng:</label>
+                    <select name="idUser" class="select-search" required>
+                        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.ten}"></option>
+                    </select>
+
+                    <!-- Sách -->
+                    <label>Sách:</label>
+                    <select name="idSach" class="select-search" required>
+                        <option th:each="sach : ${sachs}" th:value="${sach.id}" th:text="${sach.tenSach}"></option>
+                    </select>
+
+                    <label>Số lượng:</label>
+                    <input class="ip-sl" type="number" name="sluong" required>
+
+                    <label>Ngày mượn:</label>
+                    <input type="date" name="ngayMuon" required>
+
+                    <label>Hạn trả:</label>
+                    <input type="date" name="hanTra" required>
+
+                    <input type="hidden" name="idTrangThai" value="2" />
+
+                    <button type="submit">Thêm phiếu mượn</button>
+                </form>
+            </div>
+
+            <div id="approved" class="tab-content">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên người mượn</th>
+                        <th>Tên sách</th>
+                        <th>Số lượng</th>
+                        <th>Ngày mượn</th>
+                        <th>Hạn trả</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="muon : ${muonSachList}">
+                        <td th:text="${muon.id}"></td>
+                        <td th:text="${muon.nguoiDung.ten}"></td>
+                        <td th:text="${muon.sach.tenSach}"></td>
+                        <td th:text="${muon.sluong}"></td>
+                        <td th:text="${muon.ngayMuon}"></td>
+                        <td th:text="${muon.hanTra}"></td>
+                        <td>
+                            <form th:action="@{/admin/tra_sach}" method="post">
+                                <input type="hidden" name="muonSachId" th:value="${muon.id}" />
+                                <button type="submit" onclick="return confirm('Xác nhận đã trả sách ?')">Trả sách</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function() {
+        $('.select-search').select2({
+            width: '100%',
+            placeholder: 'Chọn...',
+            allowClear: true
+        });
+    });
+</script>
+</html>

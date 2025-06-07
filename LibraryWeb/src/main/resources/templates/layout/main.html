@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+</head>
+<body>
+    <div th:replace="~{template/layout/header :: header}"></div>
+    <div class="main">
+        <div th:replace="~{template/layout/sidebar :: sidebar}" class="sidebar hidden" id="sidebar"></div>
+        <div class="content">
+            <div th:insert="~{::content}"></div>
+        </div>
+    </div>
+    <div th:replace="~{template/layout/footer :: footer}"></div>
+</body>
+</html>

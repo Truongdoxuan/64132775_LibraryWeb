@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chi tiết sách</title>
+  <link rel="stylesheet" th:href="@{/css/sachInfo.css}">
+  <link rel="stylesheet" th:href="@{/css/layout.css}" />
+  <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+  <script th:src="@{/js/sidebar.js}"></script>
+  <script th:src="@{/js/book.js}"></script>
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<div class="sidebar-toggle" onclick="toggleSidebar()">≡</div>
+<div class="main">
+
+
+  <div class="content-container">
+    <div th:replace="~{layout/sidebar :: sidebar}" class="sidebar hidden" id="sidebar"></div>
+    <h1>Thông tin sách: <span th:text="${sach.tenSach}">Tên sách</span></h1>
+
+    <div class="info">
+      <table>
+        <tbody>
+        <tr>
+          <td rowspan="5" class="td-img">
+            <img th:src="@{'/uploads/' + ${sach.anhsach}}" alt="Bìa sách" />
+          </td>
+          <td><p>Tác giả</p></td>
+          <td th:text="${sach.tacGia}">Tên tác giả</td>
+        </tr>
+        <tr>
+          <td><p>Mô tả</p></td>
+          <td>
+            <span th:if="${sach.chitiet != null and sach.chitiet != ''}" th:text="${sach.chitiet}">Nội dung mô tả</span>
+            <span th:if="${sach.chitiet == null or sach.chitiet == ''}">Chưa có mô tả</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td><p>Số lượng</p></td>
+          <td th:text="${sach.sluong}"
+              th:classappend="${sach.sluong < 10} ? 'text-red' : 'text-green'">
+            10
+          </td>
+        </tr>
+        <tr>
+          <td><p>Thể loại</p></td>
+          <td th:text="${sach.idTheLoai.tenTheLoai}">Thể loại sách</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div th:if="${role == 'USER'}">
+    <div class="group-action">
+      <a onclick="history.back()" class="btn-reutrn">← Quay lại danh sách</a>
+      <button th:onclick="|datTruocSach(${sach.id}, ${sach.sluong})|" class="btn-choose">Đặt sách</button>
+      </div>
+    </div>
+
+    <div th:if="${role == 'ADMIN'}">
+      <div class="group-action">
+        <a onclick="history.back()" class="btn-reutrn">← Quay lại danh sách</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

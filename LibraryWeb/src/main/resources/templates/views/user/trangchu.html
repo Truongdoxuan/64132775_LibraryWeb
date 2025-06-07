@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/trangchu.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+</head>
+<body>
+<div th:replace="~{layout/header :: header}"></div>
+<div class="sidebar-toggle" onclick="toggleSidebar()">≡</div>
+<div class="main">
+    <div th:replace="~{layout/sidebar :: sidebar}" class="sidebar hidden" id="sidebar"></div>
+
+    <div th:fragment="content">
+        <div class="title-page">
+            <h1 th:text="${(tenSach != null and tenSach != '') or theLoai > 0} ? 'Kết quả tìm kiếm' : 'Danh mục sách'"></h1>
+        </div>
+        <div class="search-container">
+            <form action="#" method="get" th:action="@{/user/trangchu}">
+                <input type="text" name="tenSach" placeholder="Tìm tên sách" th:value="${tenSach}" />
+
+                <select name="theLoai">
+                    <option value="0" th:selected="${theLoai == 0}">Thể loại</option>
+                    <option th:each="tl : ${dsTheLoai}"
+                            th:value="${tl.id}"
+                            th:text="${tl.tenTheLoai}"
+                            th:selected="${tl.id == theLoai}">
+                    </option>
+                </select>
+                <button type="submit">Tìm kiếm</button>
+                <!-- Nút Làm mới: chuyển về /admin/trangchu không có tham số -->
+                <a th:href="@{/user/trangchu}" class="btn-reset">Làm mới</a>
+            </form>
+        </div>
+
+        <div class="pagination">
+            <a th:if="${currentPage > 0}" th:href="@{/user/trangchu(page=${currentPage - 1})}">&laquo; Trước</a>
+
+            <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:href="@{/user/trangchu(page=${i})}"
+                   th:text="${i + 1}"
+                   th:classappend="${i == currentPage} ? 'active' : ''">1</a>
+                </span>
+
+            <a th:if="${currentPage < totalPages - 1}" th:href="@{/user/trangchu(page=${currentPage + 1})}">Sau &raquo;</a>
+        </div>
+        <div class="grid-container">
+            <div class="card" th:each="sach : ${dsSach}">
+                <a th:href="@{/sach/{id}(id=${sach.id})}" class="card-link">
+                    <img th:src="@{'/uploads/' + ${sach.anhsach}}" alt="Bìa sách">
+                    <div class="ten-sach" th:text="${sach.tenSach}">Tên sách</div>
+                    <div class="tac-gia" th:text="${sach.tacGia}">Tác giả</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

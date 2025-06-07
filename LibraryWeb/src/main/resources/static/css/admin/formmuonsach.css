@@ -1,0 +1,54 @@
+.form-add {
+    width: 500px;
+    margin: 30px 300px;
+    padding: 20px 30px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: Arial, sans-serif;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input[type="date"],
+form select {
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    width: 100%;
+}
+
+form select.select-search {
+    cursor: pointer;
+}
+
+form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.ip-sl {
+    height: 30px; !important;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 5px;
+}

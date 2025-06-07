@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sách đang được mượn</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}" />
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/datSach.css}" />
+    <script th:src="@{/js/sidebar.js}"></script>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="sidebar-toggle" onclick="toggleSidebar()">≡</div>
+    <div class="main">
+        <div th:replace="~{layout/sidebar :: sidebar}" class="sidebar hidden" id="sidebar"></div>
+
+        <div th:fragment="content">
+            <h2>Danh sách sách đang được mượn</h2>
+            <table border="1" cellpadding="8" cellspacing="0" style="width: 100%;">
+                <thead>
+                <tr>
+                    <th>Tên người mượn</th>
+                    <th>Tên sách</th>
+                    <th>Số lượng</th>
+                    <th>Ngày mượn</th>
+                    <th>Hạn trả</th>
+                    <th>Ngày trả thực tế</th>
+                    <th>Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="muon : ${muonSachList}">
+                    <td th:text="${muon.nguoiDung != null ? muon.nguoiDung.ten : 'Không có tên'}">Tên người dùng</td>
+                    <td th:text="${muon.sach != null ? muon.sach.tenSach : 'Không có dữ liệu'}">Tên sách</td>
+                    <td th:text="${muon.sluong}"></td>
+                    <td th:text="${muon.ngayMuon}"></td>
+                    <td th:text="${muon.hanTra}"></td>
+                    <td th:text="${muon.ngayTra}">Chưa trả</td>
+                    <td th:text="${muon.idTrangThai == 3 ? 'Đã trả' : (muon.idTrangThai == 2 ? 'Đang mượn' : 'Khác')}"
+                        th:classappend="${muon.idTrangThai == 1 ? 'text-warning' : (muon.idTrangThai == 2 ? 'text-success' : '')}">
+                        Trạng thái
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

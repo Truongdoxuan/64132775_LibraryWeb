@@ -1,0 +1,76 @@
+.content-container {
+    background-color: white;
+}
+
+.content-container h1 {
+    color: #1C9800;
+    margin-bottom: 20px;
+}
+.info table {
+    width: 95%;
+    border-collapse: collapse;
+}
+.info {
+    margin-bottom: 30px;
+}
+
+p {
+    font-weight: bold;
+}
+
+.text-red {
+    color: red;
+    font-weight: bold;
+}
+
+.text-green {
+    color: #1C9800; /* hoặc green nếu bạn muốn đơn giản */
+    font-weight: bold;
+}
+.info td {
+    padding: 10px;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.td-img {
+    border: none !important;
+}
+.info td:first-child img {
+    width: 250px; /* Điều chỉnh kích thước ảnh */
+    height: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
+.info td:nth-child(2) {
+    width: 20%;
+    text-align: left;
+}
+
+.info td:nth-child(3) {
+    width: 50%;
+    text-align: left;
+}
+
+.btn-reutrn {
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #1C9800;
+    border-radius: 5px;
+}
+
+.btn-choose {
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: darkorange;
+    border-radius: 5px;
+    margin-left: 10px;
+    border: 2px solid darkorange;
+    cursor: pointer;
+}
